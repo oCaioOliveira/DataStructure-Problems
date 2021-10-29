@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct pilha {
+int *dados;
+int N, topo;
+} pilha;
+
+pilha *cria_pilha () {
+  pilha *p = malloc (sizeof (pilha));
+
+  p -> N = 100;
+  p -> dados = malloc (p -> N * sizeof (int));
+  p -> topo = -1;
+  
+  return p;
+}
+
+int desempilha (pilha *p, int *y) {
+  if (p != NULL) {
+    if (p -> topo == -1)
+      return 0;
+  }
+  else {
+    *y = p -> dados[p -> topo];
+    p -> topo --;
+    return 1;
+  }
+}
+
+int empilha (pilha *p, int x) {
+  if (p != NULL){
+    if (p -> topo == p -> N){
+      p -> dados = realloc (p -> dados, 2 * p -> N * sizeof (int));
+      if (p -> dados == NULL) return 0;
+      p -> N *= 2;
+    }
+    p -> topo ++;
+    p -> dados[p -> topo - 1] = x;
+    return 1;
+  }
+  return 0;
+}
+
+int main() {
+  pilha *p = malloc (sizeof(pilha));
+  
+  cria_pilha();
+
+  printf ("%d", empilha(p, 3));
+
+  free (p);
+  
+  return 0;
+}

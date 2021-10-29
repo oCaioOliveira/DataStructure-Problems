@@ -1,0 +1,25 @@
+int desenfileira (fila *f, int *y) {
+	if (f -> ini == f -> fim) return 0;
+
+	*y = f -> v[f -> ini];
+	f -> ini = (f -> ini + 1) % f -> N;
+	return 1;
+}
+
+int fila_cheia (fila *f) {
+	if (f -> ini == 0 && f -> fim == f -> N - 1 || f -> ini == f -> fim + 1) return 1; /* if ((f -> fim + 1) % f -> N == f -> ini) return 1; else return 0; */
+	else return 0;
+}
+
+int enfileira (fila *f, int x) {
+	if (fila_cheia (f)) 
+		if (! redimensiona (f)) return 0;
+	f -> v[f -> fim] = x;
+	f -> fim = (f -> fim + 1) % f -> N;
+	return 1; 
+}
+
+void detroi_fila (Fila *f) {
+	free (f -> v);
+	free (f);
+}

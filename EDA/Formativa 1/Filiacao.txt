@@ -1,0 +1,55 @@
+#include <stdio.h>
+
+typedef struct{
+    
+}tipoFiliacao;
+
+tipoFiliacao separaLinhaCSV (char nomes[240]){
+    
+    int i, j = 0;
+    char nome[80], nomeMae[80], nomePai[80];
+    
+    
+    for (i = 0; i < 241; i ++){
+        
+        if (nomes[i] == ',')
+            break;
+            
+        nome [j] = nomes [i];
+        j ++;
+        
+    }
+    
+    j = 0;
+    
+    for (i; i < 241; i ++){
+        
+        if (nomes[i] == ',')
+            break;
+            
+        nomeMae [j] = nomes [i]
+        j ++;
+        
+    }
+    
+    j = 0;
+    
+    for (i; i < 241; i ++){
+        
+        if (nomes[i] == ',')
+            break;
+            
+        nomePai [j] = nomes [i]
+        j ++;
+        
+    }
+    
+}
+
+int main()
+{
+    
+    printf("%s\n", separaLinhaCSV ("Pedro da Silva Pereira,Adriana da Silva,Guilherme Pereira").nome);
+    
+    return 0;
+}

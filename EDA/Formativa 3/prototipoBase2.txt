@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct celula {
+  int dado;
+  struct celula *prox;
+} celula;
+
+celula *criaLista () {
+  celula *le = malloc (sizeof(celula));
+  le -> prox = NULL;
+  return le;
+}
+
+void inserir (celula *elem, int x) {
+  celula *novo = malloc (sizeof(celula));
+  if (novo==NULL) exit(1);
+  novo -> dado = x;
+  novo -> prox = elem -> prox;
+  elem -> prox = novo;
+}
+
+void imprime (celula *le) {
+  celula *elem = le -> prox;
+
+  if (elem == NULL)printf ("NULL\n");
+  else printf ("%d", elem -> dado);
+  
+  for (elem = elem -> prox; elem != NULL; elem = elem -> prox)
+    printf (" -> %d", elem -> dado);
+  printf (" -> NULL\n");
+}
+
+/*int imprime_rec (celula *le) {
+  celula *elem = le -> prox;
+
+  if (elem == NULL) return printf ("NULL\n");
+  else printf ("%d", elem -> dado);
+
+  printf (" -> ");
+
+  imprime_rec (elem);
+  
+}*/
+
+celula *busca (celula *le, int x) {
+  celula *elem;
+
+  for (elem = le -> prox; elem != NULL; elem = elem -> prox)
+    if (x == elem -> dado) return elem;
+  
+  return elem;
+}
+
+celula *busca_rec (celula *le, int x) {
+  celula *elem = le -> prox;
+
+  if (elem == NULL) return NULL;
+  if (x == elem -> dado) return elem;
+
+  busca_rec (elem, x);
+}
+
+int main () {
+  celula *le;
+  
+  le = criaLista ();
+
+  inserir(le, 3);
+  inserir(le, 2);
+  inserir(le, 1);
+
+  //imprime (le);
+
+  //imprime_rec (le);
+
+  int x;
+
+  scanf ("%d", &x);
+  celula *result = busca_rec(le, x);
+  printf ("%d\n",  result -> dado);
+  
+  return 0;
+}

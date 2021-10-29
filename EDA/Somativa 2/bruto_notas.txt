@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct celula {
+char matricula[10];
+double mediaAtividades;
+double mediaProvas;
+struct celula *prox;
+} celula;
+
+
+celula *criaLista () {
+  celula *le = malloc (sizeof(celula));
+  le -> prox = NULL;
+  return le;
+}
+
+void insere_inicio (celula *le, char *m, double mA, double mP) {
+  celula *novo = malloc (sizeof(celula));
+  for (int i = 0; i < 10; i ++) novo -> matricula[i] = m[i];
+  novo -> mediaAtividades = mA;
+  novo -> mediaProvas = mP;
+  novo -> prox = le -> prox;
+  le -> prox = novo;
+}
+
+void imprime (celula *le) {
+  celula *elem = le -> prox;
+
+  if (elem == NULL)printf ("NULL\n");
+  else {
+    printf ("{");
+    for (int i = 0; i < 10; i ++) printf ("%c", elem -> matricula[i]);
+    printf (", %lf, %lf} ->\n", elem -> mediaAtividades, elem -> mediaProvas);
+  }
+  
+  for (elem = elem -> prox; elem != NULL; elem = elem -> prox) {
+    printf ("{");
+    for (int i = 0; i < 10; i ++) printf ("%c", elem -> matricula[i]);
+    printf (", %lf, %lf} ->\n", elem -> mediaAtividades, elem -> mediaProvas);
+  }
+  printf (" -> NULL\n");
+  
+}
+
+void relatorioMediaAtividades (celula *le, celula *l1, celula *l2, double media) {
+  for (le = le -> prox; le != NULL; le = le -> prox) {
+    if (le -> mediaAtividades <= media) {
+      l1 = l1 -> prox;
+      for (int i = 0; i < 10; i ++) l1 -> matricula[i] = le -> matricula[i];
+      l1 -> mediaAtividades = le -> mediaAtividades;
+      l1 -> mediaProvas = le -> mediaProvas;
+    }
+    else {
+      l2 = l2 -> prox;
+      for (int i = 0; i < 10; i ++) l2 -> matricula[i] = le -> matricula[i];
+      l2 -> mediaAtividades = le -> mediaAtividades;
+      l2 -> mediaProvas = le -> mediaProvas;
+    }
+  }
+}
+int main () {
+  celula *le = malloc(sizeof(celula)), *l1 = malloc(sizeof(celula)), *l2 = malloc(sizeof(celula));
+
+  char *a = "190262661", *b = "170062465", *c = "160016169", *d = "140164006";
+  
+  le = criaLista ();
+
+  l1 = criaLista ();
+
+  l2 = criaLista ();
+
+  insere_inicio (le, a, 5.0, 7.0);
+  insere_inicio (le, b, 9.5, 8.5);
+  insere_inicio (le, c, 4.0, 2.0);
+  insere_inicio (le, d, 10.0, 8.0);
+
+  printf ("le\n");
+  imprime (le);
+  
+
+  relatorioMediaAtividades (le, l1, l2, 6.0);
+
+  printf ("l1\n");
+  imprime (l1);
+
+  printf ("l2\n");
+  imprime (l2);
+  
+  return 0;
+}
+  

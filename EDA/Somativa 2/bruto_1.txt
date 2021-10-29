@@ -1,0 +1,104 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct celula {
+char matricula[10];
+double mediaAtividades;
+double mediaProvas;
+struct celula *prox;
+} celula;
+
+celula *criaLista () {
+  celula *le = malloc (sizeof(celula));
+  le -> prox = NULL;
+  return le;
+}
+
+void insere_inicio (celula *le, char matricula, double atividade, double prova) {
+  celula *novo = malloc (sizeof(celula));
+  if (novo==NULL) exit(1);
+  novo -> matricula = matricula;
+  novo -> mediaAtividades = atividade;
+  novo -> mediaProvas = prova;
+  novo -> prox = le -> prox;
+  le -> prox = novo;
+}
+
+void imprime (celula *le) {
+  celula *elem = le -> prox;
+
+  if (elem == NULL)printf ("NULL\n");
+  else printf ("%d", elem -> dado);
+  
+  for (elem = elem -> prox; elem != NULL; elem = elem -> prox)
+    printf (" -> %d", elem -> dado);
+  printf (" -> NULL\n");
+}
+
+void remove_depois (celula *p) {
+  celula *lixo = p -> prox;
+  if (lixo != NULL) {
+    p -> prox = lixo -> prox;
+    free (lixo);
+  }
+}
+
+/*void remove_elemento (celula *le, int x) {
+  celula *lixo;
+
+  for (lixo = le -> prox; lixo != NULL; lixo = lixo -> prox) {
+    if (lixo -> dado == x) {
+      le -> prox = lixo -> prox;
+      return;
+    }
+    le = le -> prox; 
+  }
+}*/
+
+void remove_elemento (celula *le, int x) {
+  for (celula *elem = le; elem -> prox != NULL; elem = elem -> prox) {
+    if (elem -> prox -> dado == x) {
+      remove_depois (elem);
+      return;
+    }
+  }
+}
+
+/*void remove_todos_elementos  (celula *le, int x) {
+  celula *lixo;
+
+  for (lixo = le -> prox; lixo != NULL; lixo = lixo -> prox) {
+    if (lixo -> dado == x) {
+      le -> prox = lixo -> prox;
+      continue;
+      }
+    if (lixo -> prox == NULL) break;
+    le = le -> prox; 
+  }
+}*/
+
+void remove_todos_elementos  (celula *le, int x) {
+for (celula *elem = le; elem -> prox != NULL; elem = elem -> prox) {
+    if (elem -> prox -> dado == x)
+      remove_depois (elem); 
+  }
+}  
+  
+int main () {
+  celula *le = malloc(sizeof(celula));
+  
+  le = criaLista ();
+
+  char matricula = '1231233131';
+
+  insere_inicio (le, matricula, 4.0, 6.0);
+  insere_inicio (le, matricula, 4.0, 6.0);
+  insere_inicio (le, matricula, 4.0, 6.0);
+
+  //remove_todos_elementos (le, 2);
+
+  imprime (le);
+  
+  return 0;
+}
+  

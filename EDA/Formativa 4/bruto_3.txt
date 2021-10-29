@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct celula {
+int dado;
+struct celula *prox;
+} celula;
+
+celula *criaLista () {
+  celula *le = malloc (sizeof(celula));
+  le -> prox = NULL;
+  return le;
+}
+
+void insere_inicio (celula *le, int x) {
+  celula *novo = malloc (sizeof(celula));
+  if (novo==NULL) exit(1);
+  novo -> dado = x;
+  novo -> prox = le -> prox;
+  le -> prox = novo;
+}
+
+void imprime (celula *le) {
+  celula *elem = le -> prox;
+
+  if (elem == NULL)printf ("NULL\n");
+  else printf ("%d", elem -> dado);
+  
+  for (elem = elem -> prox; elem != NULL; elem = elem -> prox)
+    printf (" -> %d", elem -> dado);
+  printf (" -> NULL\n");
+}
+
+int desempilha (celula *p, int *y){
+    celula *lixo = p -> prox;
+
+    if (lixo == NULL) return 0;
+
+    *y  = lixo -> dado;
+    p -> prox = lixo -> prox;
+    free (lixo);
+    return 1; 
+}
+
+int main () {
+  celula *le = malloc(sizeof(celula));
+  
+  le = criaLista ();
+
+  int *y;
+  
+  //insere_inicio (le, 2);
+  //insere_inicio (le, 3);
+  //insere_inicio (le, 2);
+
+  imprime (le);
+
+  desempilha (le, y);
+
+  //imprime (le);
+
+  free (le);
+  
+  return 0;
+}
+  
