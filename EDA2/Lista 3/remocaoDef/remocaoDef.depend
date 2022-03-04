@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1645203717 source:c:\users\caioc\documents\eda2\lista 3\remocaodef\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
