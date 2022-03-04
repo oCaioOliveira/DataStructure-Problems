@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1642774243 source:c:\users\caioc\documents\eda2\lista 1\ctrlz\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+

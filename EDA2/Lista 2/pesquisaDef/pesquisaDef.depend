@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1643809421 source:c:\users\caioc\desktop\competicao\aula2\pesquisadef\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
