@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1645184160 source:c:\users\caioc\documents\eda2\lista 4\sanidade\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
